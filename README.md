@@ -1,4 +1,4 @@
-![Tests Status](https://github.com/Redeagle48/OutSystems.Extension.NetChecksumUtils/actions/workflows/test.yml/badge.svg) ![Coverage](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/YOUR_USERNAME/GIST_ID/raw/coverage-badge.json)
+![Tests Status](https://github.com/Redeagle48/OutSystems.Extension.NetChecksumUtils/actions/workflows/test.yml/badge.svg) [![codecov](https://codecov.io/github/Redeagle48/OutSystems.Extension.NetChecksumUtils/graph/badge.svg?token=KFNT6WP1VY)](https://codecov.io/github/Redeagle48/OutSystems.Extension.NetChecksumUtils)
 # OutSystems.Extension.NetChecksumUtils
 A high-performance OutSystems Extension using the .Net System.Security.Cryptography DLL to provide robust checksum generation and verification for strings and binary data. This extension simplifies data integrity checks by wrapping standard .NET cryptographic providers into easy-to-use Server Actions. This implementation replaces the obsolete "ComputeHash" OutSystems built-in action. 
 
