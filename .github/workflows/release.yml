@@ -20,7 +20,7 @@ jobs:
         dotnet-version: '8.0.x'
 
     - name: Restore dependencies
-      run: dotnet restore OutSystems.NetChecksumUtils/OutSystems.NetChecksumUtils.csproj
+      run: dotnet restore OutSystems.NetChecksumUtils.UnitTests/OutSystems.NetChecksumUtils.UnitTests.csproj
 
     # --- THE GATEKEEPER: RUN TESTS ---
     - name: Run Tests
