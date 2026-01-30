@@ -1,5 +1,5 @@
 # OutSystems.Extension.NetChecksumUtils
-A high-performance OutSystems Extension built with .NET to provide robust checksum generation and verification for strings and binary data. This extension simplifies data integrity checks by wrapping standard .NET cryptographic providers into easy-to-use Server Actions.
+A high-performance OutSystems Extension using the .Net System.Security.Cryptography DLL to provide robust checksum generation and verification for strings and binary data. This extension simplifies data integrity checks by wrapping standard .NET cryptographic providers into easy-to-use Server Actions. This implementation replaces the obsolete "ComputeHash" OutSystems built-in action. 
 
 🚀 Features
 Multi-Algorithm Support: Generate hashes using MD5, SHA256, SHA3_256, and SHA512.
