@@ -7,13 +7,13 @@ namespace OutSystems.NetChecksumUtils
     /// </summary>
     [OSInterface(
         Description = "Computes a hexadecimal checksum for the provided text using the specified algorithm (SHA256, SHA512, MD5, SHA3_256, using the .Net System.Security.Cryptography dll.",
-        IconResourceName = "OutSystems.YAEmailValidator.resources.YAEmailValidator_icon.png"
+        IconResourceName = "OutSystems.NetChecksumUtils.resources.NetChecksumUtils_icon.png"
     )]
     public interface INetChecksumUtils
     {
         [OSAction(
             Description = "Computes a hexadecimal checksum for the provided text using the specified algorithm.",
-            IconResourceName = "OutSystems.YAEmailValidator.resources.YAEmailValidator_icon.png"
+            IconResourceName = "OutSystems.NetChecksumUtils.resources.NetChecksumUtils_icon.png"
         )]
         void ComputeChecksum(
             [OSParameterAttribute(Description = "The name of the hashing algorithm to use. Supported values (case-insensitive): \"SHA256\", \"SHA-256\", \"SHA512\", \"SHA-512\", \"MD5\", \"SHA3-256\", \"SHA3_256\".")]
