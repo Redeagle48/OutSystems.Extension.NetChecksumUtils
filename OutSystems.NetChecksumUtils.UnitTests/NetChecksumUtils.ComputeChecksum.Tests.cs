@@ -44,7 +44,7 @@ namespace OutSystems.NetChecksumUtils.Tests
         [TestCase("SHA256", "OutSystems")]
         [TestCase("SHA-256", "OutSystems")]
         [TestCase("SHA512", "High performance low-code")]
-        //[TestCase("SHA3_256", "Modern security")]
+        [TestCase("SHA3_256", "Modern security")]
         [TestCase("MD5", "Legacy support")]
         [TestCase("SHA256", "")] // Edge case: empty string
         public void ComputeChecksum_ValidInput_ReturnsCorrectHash(string algorithm, string text)
