@@ -1,0 +1,29 @@
+name: CI - Run Tests
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch: 
+
+jobs:
+  test:
+    name: Unit Tests
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.0.x'
+
+    - name: Restore dependencies
+      run: dotnet restore OutSystems.NetChecksumUtils.UnitTests/OutSystems.NetChecksumUtils.UnitTests.csproj
+
+    - name: Run Tests
+      # We target the specific test project here
+      run: dotnet test OutSystems.NetChecksumUtils.UnitTests/OutSystems.NetChecksumUtils.UnitTests.csproj --configuration Release --no-restore --nologo --verbosity minimal
