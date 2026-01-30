@@ -24,4 +24,8 @@
         </PackageReference>
 	</ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\OutSystems.NetChecksumUtils\OutSystems.NetChecksumUtils.csproj" />
+    </ItemGroup>
+
 </Project>

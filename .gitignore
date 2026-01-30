@@ -45,8 +45,8 @@ packages/
 ## =========================================================================
 
 # Specific requested patterns
-YAEmailValidator_Asset.zip
-YAEmailValidator_v*.zip
+NetChecksumUtils_Asset.zip
+NetChecksumUtils_v*.zip
 
 # General safety for all compressed files
 *.zip
