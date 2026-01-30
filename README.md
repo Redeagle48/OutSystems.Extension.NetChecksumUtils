@@ -1,2 +1,22 @@
-# OutSystems.Extension.YAEmailValidator
-Wrapper for OutSystems of high-performance utility with rigorous validation using the EmailValidation 1.3.0 library by Jeffrey Stedfast. Unlike System.Net.Mail.MailAddress, which is designed for sending mail and permits loose formatting, this tool adheres to RFC 5321 for SMTP transport.
+# OutSystems.Extension.NetChecksumUtils
+A high-performance OutSystems Extension built with .NET to provide robust checksum generation and verification for strings and binary data. This extension simplifies data integrity checks by wrapping standard .NET cryptographic providers into easy-to-use Server Actions.
+
+🚀 Features
+Multi-Algorithm Support: Generate hashes using MD5, SHA256, SHA3_256, and SHA512.
+
+🛠 Actions Included
+This extension exposes the following Server Actions within Service Studio:
+
+## ComputeHash
+Generates a checksum for a given input based on the specified algorithm.
+
+Input: Value (Text/Binary), Algorithm (Text: MD5, SHA256, etc.)
+
+Output: Hash (Text)
+
+## VerifyHash
+Compares a plain value against an existing hash to check for integrity.
+
+Input: Value (Text/Binary), HashToVerify (Text), Algorithm (Text: MD5, SHA256, etc.)
+
+Output: IsValid (Boolean)
