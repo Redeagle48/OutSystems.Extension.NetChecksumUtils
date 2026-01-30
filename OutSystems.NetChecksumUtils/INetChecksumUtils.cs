@@ -28,7 +28,7 @@ namespace OutSystems.NetChecksumUtils
 
         [OSAction(
             Description = "Computes a hexadecimal checksum for the provided text using the specified algorithm.",
-            IconResourceName = "OutSystems.YAEmailValidator.resources.YAEmailValidator_icon.png"
+            IconResourceName = "OutSystems.NetChecksumUtils.resources.NetChecksumUtils_icon.png"
         )]
         void VerifyChecksum(
             [OSParameterAttribute(Description = "The name of the hashing algorithm to use. Supported values (case-insensitive): \"SHA256\", \"SHA-256\", \"SHA512\", \"SHA-512\", \"MD5\", \"SHA3-256\", \"SHA3_256\".")]
