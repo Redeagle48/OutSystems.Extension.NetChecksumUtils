@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 18
+VisualStudioVersion = 18.2.11415.280 d18.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OutSystems.NetChecksumUtils", "OutSystems.NetChecksumUtils.csproj", "{A372E341-8741-417D-81B2-79685AB7EE1A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OutSystems.NetChecksumUtils.UnitTests", "..\OutSystems.NetChecksumUtils.UnitTests\OutSystems.NetChecksumUtils.UnitTests.csproj", "{F936A787-2C20-8CAD-0B96-A5D592D7ADB5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A372E341-8741-417D-81B2-79685AB7EE1A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A372E341-8741-417D-81B2-79685AB7EE1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A372E341-8741-417D-81B2-79685AB7EE1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A372E341-8741-417D-81B2-79685AB7EE1A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F936A787-2C20-8CAD-0B96-A5D592D7ADB5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F936A787-2C20-8CAD-0B96-A5D592D7ADB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F936A787-2C20-8CAD-0B96-A5D592D7ADB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F936A787-2C20-8CAD-0B96-A5D592D7ADB5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8F9CB76A-F832-4708-8E4B-4AEE89D4D38C}
+	EndGlobalSection
+EndGlobal
