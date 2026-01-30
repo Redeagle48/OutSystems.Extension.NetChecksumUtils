@@ -5,6 +5,15 @@ A high-performance OutSystems Extension using the .Net System.Security.Cryptogra
 🚀 Features
 Multi-Algorithm Support: Generate hashes using MD5, SHA256, SHA3_256, and SHA512.
 
+## Hash Algorithms available
+| **Algorithm** | **Performance (Speed)** | **Security Level** | **Best OutSystems Use Case**                                             |
+|---------------|-------------------------|--------------------|--------------------------------------------------------------------------|
+| MD5           | Fastest                 | Broken             | Quick file integrity (e.g. "Did this 2KB text file download correctly?") |
+| SHA-256       | Moderate                | High               | The "Standard". Use for API integrations and standard hashing.           |
+| SHA-512       | Fast (on 64-bit)        | High               | High-performance hashing for large binaries/blobs.                       |
+| SHA3-512      | Slower (Software)       | Maximum            | Highly sensitive data; resistance against Length Extension Attacks.      |
+
+
 🛠 Actions Included
 This extension exposes the following Server Actions within Service Studio:
 
