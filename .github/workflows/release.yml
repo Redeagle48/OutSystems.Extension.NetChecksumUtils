@@ -26,19 +26,19 @@ jobs:
 
     - name: Publish App
       # We publish to a local 'publish' folder
-      run: dotnet publish OutSystems.YAEmailValidator/OutSystems.YAEmailValidator.csproj -c Release -r linux-x64 --self-contained false -o ./publish
+      run: dotnet publish OutSystems.NetChecksumUtils/OutSystems.NetChecksumUtils.csproj -c Release -r linux-x64 --self-contained false -o ./publish
 
     - name: Create Versioned Zip
-      # This creates YAEmailValidator_v1.0.0.zip (or whatever your tag is)
+      # This creates NetChecksumUtils_v1.0.0.zip (or whatever your tag is)
       run: |
         cd ./publish
-        zip -r ../YAEmailValidator_${{ steps.get_version.outputs.VERSION }}.zip .
+        zip -r ../NetChecksumUtils_${{ steps.get_version.outputs.VERSION }}.zip .
         cd ..
 
     - name: Create GitHub Release
       uses: softprops/action-gh-release@v2
       with:
-        files: YAEmailValidator_${{ steps.get_version.outputs.VERSION }}.zip
+        files: NetChecksumUtils_${{ steps.get_version.outputs.VERSION }}.zip
         name: Release ${{ steps.get_version.outputs.VERSION }}
         draft: false
         prerelease: false
