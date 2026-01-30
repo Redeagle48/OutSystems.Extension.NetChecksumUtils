@@ -21,7 +21,7 @@ jobs:
 
     # 1. Restore the solution (or both projects) for the target runtime
     - name: Restore dependencies
-      run: dotnet restore -r linux-x64
+      run: dotnet restore OutSystems.NetChecksumUtils/OutSystems.NetChecksumUtils.sln -r linux-x64
 
     # --- THE GATEKEEPER: RUN TESTS ---
 
