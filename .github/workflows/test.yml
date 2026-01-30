@@ -25,5 +25,26 @@ jobs:
       run: dotnet restore OutSystems.NetChecksumUtils.UnitTests/OutSystems.NetChecksumUtils.UnitTests.csproj
 
     - name: Run Tests
-      # We target the specific test project here
-      run: dotnet test OutSystems.NetChecksumUtils.UnitTests/OutSystems.NetChecksumUtils.UnitTests.csproj --configuration Release --no-restore --nologo --verbosity minimal
+      # --collect:"XPlat Code Coverage" is the magic flag for Coverlet
+      run: |
+        dotnet test OutSystems.NetChecksumUtils.UnitTests/OutSystems.NetChecksumUtils.UnitTests.csproj \
+        --configuration Release \
+        --no-restore \
+        --nologo \
+        --collect:"XPlat Code Coverage" \
+        --results-directory ./coverage
+
+    - name: Report Code Coverage
+      uses: irongut/CodeCoverageSummary@v1.3.0
+      with:
+        filename: coverage/**/coverage.cobertura.xml
+        badge: true
+        fail_below_min: false
+        format: markdown
+        output: both
+
+    - name: Add Coverage PR Comment
+      uses: marooned/github-action-code-coverage-report@v1.0.0
+      if: github.event_name == 'pull_request'
+      with:
+        coverage-file: coverage.md
