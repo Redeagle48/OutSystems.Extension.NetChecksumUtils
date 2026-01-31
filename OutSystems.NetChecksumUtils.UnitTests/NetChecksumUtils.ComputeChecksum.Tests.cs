@@ -34,6 +34,19 @@ namespace OutSystems.NetChecksumUtils.Tests
             };
         }
 
+        private static string GetExpectedBase64(string algorithm, string text)
+        {
+            byte[] data = Encoding.UTF8.GetBytes(text);
+            return algorithm.Trim().ToUpperInvariant() switch
+            {
+                "SHA256" or "SHA-256" => Convert.ToBase64String(SHA256.HashData(data)),
+                "SHA512" or "SHA-512" => Convert.ToBase64String(SHA512.HashData(data)),
+                "SHA3_256" or "SHA3-256" => Convert.ToBase64String(SHA3_256.HashData(data)),
+                "MD5" => Convert.ToBase64String(MD5.HashData(data)),
+                _ => throw new ArgumentException("Unsupported algorithm in test helper", nameof(algorithm))
+            };
+        }
+
         #endregion
 
         #region ComputeChecksum Tests
@@ -53,12 +66,13 @@ namespace OutSystems.NetChecksumUtils.Tests
             string expected = GetExpectedHash(algorithm, text);
 
             // Act
-            _sut.ComputeChecksum(algorithm, text, out string actual, out long ticks);
+            _sut.ComputeChecksum(algorithm, text, out string actualHex, out string actualBase64, out long ticks);
 
             // Assert
             Assert.Multiple(() =>
             {
-                Assert.That(actual, Is.EqualTo(expected), $"Hash mismatch for {algorithm}");
+                Assert.That(actualHex, Is.EqualTo(expected), $"Hex hash mismatch for {algorithm}");
+                Assert.That(actualBase64, Is.EqualTo(GetExpectedBase64(algorithm, text)), $"Base64 hash mismatch for {algorithm}");
                 Assert.That(ticks, Is.GreaterThanOrEqualTo(0), "Duration should be non-negative.");
             });
         }
@@ -120,8 +134,8 @@ namespace OutSystems.NetChecksumUtils.Tests
             Assert.Multiple(() =>
             {
                 // ComputeChecksum null checks
-                Assert.Throws<ArgumentNullException>(() => _sut.ComputeChecksum(null!, "text", out _, out _));
-                Assert.Throws<ArgumentNullException>(() => _sut.ComputeChecksum("SHA256", null!, out _, out _));
+                Assert.Throws<ArgumentNullException>(() => _sut.ComputeChecksum(null!, "text", out _, out _, out _));
+                Assert.Throws<ArgumentNullException>(() => _sut.ComputeChecksum("SHA256", null!, out _, out _, out _));
 
                 // VerifyChecksum null checks
                 Assert.Throws<ArgumentNullException>(() => _sut.VerifyChecksum(null!, "text", "hash", out _, out _));
@@ -139,7 +153,7 @@ namespace OutSystems.NetChecksumUtils.Tests
         public void Methods_InvalidAlgorithm_ThrowsArgumentException(string invalidAlgo)
         {
             Assert.Throws<ArgumentException>(() => 
-                _sut.ComputeChecksum(invalidAlgo, "text", out _, out _));
+                _sut.ComputeChecksum(invalidAlgo, "text", out _, out _, out _));
         }
 
         #endregion

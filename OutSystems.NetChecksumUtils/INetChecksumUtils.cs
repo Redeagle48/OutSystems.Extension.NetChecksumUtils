@@ -22,6 +22,8 @@ namespace OutSystems.NetChecksumUtils
             string textToHash,
             [OSParameterAttribute(Description = "Output parameter that receives the computed checksum as an uppercase hexadecimal string.")]
             out string checksumText,
+            [OSParameterAttribute(Description = "Output parameter that receives the computed checksum as a Base64 string.")]
+            out string checksumBase64,
             [OSParameterAttribute(Description = "Output parameter that receives the duration of the hashing operation in ticks.")]
             out long operationDuration
         );
@@ -35,7 +37,7 @@ namespace OutSystems.NetChecksumUtils
             string algorithm,
             [OSParameterAttribute(Description = "The name of the hashing algorithm to use. Supported values (case-insensitive): \"SHA256\", \"SHA-256\", \"SHA512\", \"SHA-512\", \"MD5\", \"SHA3-256\", \"SHA3_256\".")]
             string text,
-            [OSParameterAttribute(Description = "The text to compute the checksum for. The text is encoded as UTF-8 before hashing.")]
+            [OSParameterAttribute(Description = "The text to compute the checksum for uppercase hex or base64). The text is encoded as UTF-8 before hashing.")]
             string existingChecksum,
             [OSParameterAttribute(Description = "Output parameter that receives the computed checksum as an uppercase hexadecimal string.")]
             out bool isValid,

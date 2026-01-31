@@ -12,12 +12,12 @@ namespace OutSystems.NetChecksumUtils
     /// </summary>
     public class NetChecksumUtils : INetChecksumUtils
     {
-        static (string Hex, TimeSpan Elapsed) ComputeChecksum(Func<byte[], byte[]> hashFunc, byte[] bytes)
+        static (byte[] HashBytes, TimeSpan Elapsed) ComputeChecksum(Func<byte[], byte[]> hashFunc, byte[] bytes)
         {
             var sw = Stopwatch.StartNew();
             byte[] hashBytes = hashFunc(bytes);
             sw.Stop();
-            return (Convert.ToHexString(hashBytes), sw.Elapsed);
+            return (hashBytes, sw.Elapsed);
         }
 
         /// <summary>
@@ -59,7 +59,7 @@ namespace OutSystems.NetChecksumUtils
         /// <exception cref="ArgumentException">Thrown when <paramref name="algorithm"/> is not recognized/supported.</exception>
         public void ComputeChecksum(
             string algorithm, string textToHash,
-            out string checksumText, out long operationDurationInTicks)
+            out string checksumTextHex, out string checksumTextBase64, out long operationDurationInTicks)
         {
             // Ensure inputs are not null before proceeding
             ArgumentNullException.ThrowIfNull(algorithm);
@@ -72,10 +72,11 @@ namespace OutSystems.NetChecksumUtils
             var hashFunc = GetHashFunction(algorithm);
 
             // 3. Execute the hashing logic and measure performance.
-            var (computedChecksum, elapsed) = ComputeChecksum(hashFunc, inputBytes);
+            var (hashBytes, elapsed) = ComputeChecksum(hashFunc, inputBytes);
 
-            // 4. Assign results to output parameters
-            checksumText = computedChecksum;
+            // 4. Assign results to output parameters (hex + base64)
+            checksumTextHex = Convert.ToHexString(hashBytes);
+            checksumTextBase64 = Convert.ToBase64String(hashBytes);
             operationDurationInTicks = elapsed.Ticks;
         }
 
@@ -87,7 +88,7 @@ namespace OutSystems.NetChecksumUtils
         /// "SHA256", "SHA-256", "SHA512", "SHA-512", "MD5".
         /// </param>
         /// <param name="text">The input text to hash (UTF-8 encoded before hashing).</param>
-        /// <param name="existingChecksum">The checksum to compare against (hex string).</param>
+        /// <param name="existingChecksum">The checksum to compare against (base64 or hex string).</param>
         /// <param name="isValid">Output parameter set to true when the computed checksum equals <paramref name="existingChecksum"/> (case-insensitive).</param>
         /// <param name="operationDuration">Output parameter that receives the duration, in ticks, of the entire verification operation (includes hashing + comparison).</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="algorithm"/>, <paramref name="text"/> or <paramref name="existingChecksum"/> is null.</exception>
@@ -109,8 +110,11 @@ namespace OutSystems.NetChecksumUtils
 
             // 3. Measure the whole operation: hashing + comparison
             var sw = Stopwatch.StartNew();
-            var (newChecksum, _) = ComputeChecksum(hashFunc, inputBytes);
-            isValid = string.Equals(newChecksum, existingChecksum, StringComparison.OrdinalIgnoreCase);
+            var (hashBytes, _) = ComputeChecksum(hashFunc, inputBytes);
+            var newHex = Convert.ToHexString(hashBytes);
+            var newBase64 = Convert.ToBase64String(hashBytes);
+            isValid = string.Equals(newHex, existingChecksum, StringComparison.OrdinalIgnoreCase)
+                || string.Equals(newBase64, existingChecksum, StringComparison.Ordinal);
             sw.Stop();
 
             // 4. Return operation duration in ticks (includes comparison step)
