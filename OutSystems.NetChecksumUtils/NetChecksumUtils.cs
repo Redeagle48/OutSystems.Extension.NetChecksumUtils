@@ -12,7 +12,7 @@ namespace OutSystems.NetChecksumUtils
     /// </summary>
     public class NetChecksumUtils : INetChecksumUtils
     {
-        static (byte[] HashBytes, TimeSpan Elapsed) ComputeChecksum(Func<byte[], byte[]> hashFunc, byte[] bytes)
+        static (byte[] HashBytes, TimeSpan Elapsed) ComputeHashBytes(Func<byte[], byte[]> hashFunc, byte[] bytes)
         {
             var sw = Stopwatch.StartNew();
             byte[] hashBytes = hashFunc(bytes);
@@ -59,7 +59,7 @@ namespace OutSystems.NetChecksumUtils
         /// <exception cref="ArgumentException">Thrown when <paramref name="algorithm"/> is not recognized/supported.</exception>
         public void ComputeChecksum(
             string algorithm, string textToHash,
-            out string checksumTextHex, out string checksumTextBase64, out long operationDurationInTicks)
+            out Checksum checksum, out long operationDurationInTicks)
         {
             // Ensure inputs are not null before proceeding
             ArgumentNullException.ThrowIfNull(algorithm);
@@ -72,11 +72,14 @@ namespace OutSystems.NetChecksumUtils
             var hashFunc = GetHashFunction(algorithm);
 
             // 3. Execute the hashing logic and measure performance.
-            var (hashBytes, elapsed) = ComputeChecksum(hashFunc, inputBytes);
+            var (hashBytes, elapsed) = ComputeHashBytes(hashFunc, inputBytes);
 
             // 4. Assign results to output parameters (hex + base64)
-            checksumTextHex = Convert.ToHexString(hashBytes);
-            checksumTextBase64 = Convert.ToBase64String(hashBytes);
+            checksum = new Checksum
+            {
+                Hex = Convert.ToHexString(hashBytes),
+                Base64 = Convert.ToBase64String(hashBytes)
+            };
             operationDurationInTicks = elapsed.Ticks;
         }
 
@@ -110,7 +113,7 @@ namespace OutSystems.NetChecksumUtils
 
             // 3. Measure the whole operation: hashing + comparison
             var sw = Stopwatch.StartNew();
-            var (hashBytes, _) = ComputeChecksum(hashFunc, inputBytes);
+            var (hashBytes, _) = ComputeHashBytes(hashFunc, inputBytes);
             var newHex = Convert.ToHexString(hashBytes);
             var newBase64 = Convert.ToBase64String(hashBytes);
             isValid = string.Equals(newHex, existingChecksum, StringComparison.OrdinalIgnoreCase)

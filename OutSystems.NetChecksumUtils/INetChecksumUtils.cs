@@ -20,10 +20,8 @@ namespace OutSystems.NetChecksumUtils
             string algorithm,
             [OSParameterAttribute(Description = "The text to compute the checksum for. The text is encoded as UTF-8 before hashing.")]
             string textToHash,
-            [OSParameterAttribute(Description = "Output parameter that receives the computed checksum as an uppercase hexadecimal string.")]
-            out string checksumText,
-            [OSParameterAttribute(Description = "Output parameter that receives the computed checksum as a Base64 string.")]
-            out string checksumBase64,
+            [OSParameterAttribute(Description = "Output parameter that receives the computed checksum (Hex + Base64).")]
+            out Checksum checksum,
             [OSParameterAttribute(Description = "Output parameter that receives the duration of the hashing operation in ticks.")]
             out long operationDuration
         );

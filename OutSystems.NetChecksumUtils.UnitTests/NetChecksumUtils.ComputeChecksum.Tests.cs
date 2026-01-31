@@ -66,13 +66,13 @@ namespace OutSystems.NetChecksumUtils.Tests
             string expected = GetExpectedHash(algorithm, text);
 
             // Act
-            _sut.ComputeChecksum(algorithm, text, out string actualHex, out string actualBase64, out long ticks);
+            _sut.ComputeChecksum(algorithm, text, out Checksum checksum, out long ticks);
 
             // Assert
             Assert.Multiple(() =>
             {
-                Assert.That(actualHex, Is.EqualTo(expected), $"Hex hash mismatch for {algorithm}");
-                Assert.That(actualBase64, Is.EqualTo(GetExpectedBase64(algorithm, text)), $"Base64 hash mismatch for {algorithm}");
+                Assert.That(checksum.Hex, Is.EqualTo(expected), $"Hex hash mismatch for {algorithm}");
+                Assert.That(checksum.Base64, Is.EqualTo(GetExpectedBase64(algorithm, text)), $"Base64 hash mismatch for {algorithm}");
                 Assert.That(ticks, Is.GreaterThanOrEqualTo(0), "Duration should be non-negative.");
             });
         }
@@ -134,8 +134,8 @@ namespace OutSystems.NetChecksumUtils.Tests
             Assert.Multiple(() =>
             {
                 // ComputeChecksum null checks
-                Assert.Throws<ArgumentNullException>(() => _sut.ComputeChecksum(null!, "text", out _, out _, out _));
-                Assert.Throws<ArgumentNullException>(() => _sut.ComputeChecksum("SHA256", null!, out _, out _, out _));
+                Assert.Throws<ArgumentNullException>(() => _sut.ComputeChecksum(null!, "text", out _, out _));
+                Assert.Throws<ArgumentNullException>(() => _sut.ComputeChecksum("SHA256", null!, out _, out _));
 
                 // VerifyChecksum null checks
                 Assert.Throws<ArgumentNullException>(() => _sut.VerifyChecksum(null!, "text", "hash", out _, out _));
@@ -153,7 +153,7 @@ namespace OutSystems.NetChecksumUtils.Tests
         public void Methods_InvalidAlgorithm_ThrowsArgumentException(string invalidAlgo)
         {
             Assert.Throws<ArgumentException>(() => 
-                _sut.ComputeChecksum(invalidAlgo, "text", out _, out _, out _));
+                _sut.ComputeChecksum(invalidAlgo, "text", out _, out _));
         }
 
         #endregion
